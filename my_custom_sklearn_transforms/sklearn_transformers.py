@@ -31,7 +31,7 @@ class CreateColumnMean(BaseEstimator, TransformerMixin):
         for column in self.columns:
             data[self.new_column] = data[self.new_column] + data[column]
         data[self.new_column] = data[self.new_column] / len(self.columns)
-        # Retornamos um novo dataframe sem as colunas indesejadas
+        # Retornamos um novo dataframe com a nova coluna
         return data
     
 # All sklearn Transforms must have the `transform` and `fit` methods
@@ -49,5 +49,5 @@ class CreateColumnSum(BaseEstimator, TransformerMixin):
         data[self.new_column] = 0
         for column in self.columns:
             data[self.new_column] = data[self.new_column] + data[column]
-        # Retornamos um novo dataframe sem as colunas indesejadas
+        # Retornamos um novo dataframe com a nova coluna
         return data
