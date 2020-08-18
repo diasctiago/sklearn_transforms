@@ -93,29 +93,32 @@ class CompareDeleteValuesZero(BaseEstimator, TransformerMixin):
         self.columnA = columnA
         self.columnB = columnB
 
-    def fit(self, X, y=None):
+    def fit(self, X, y):
         return self
 
-    def transform(self, X):
+    def transform(self, X, y):
         # Primeiro realizamos a cópia do dataframe 'X' de entrada
         data = X.copy()
+        data2 = y.copy()
         index_del = data.loc[data[self.columnA] == 0].loc[data[self.columnB] == 0].index
         data.drop(index_del, inplace=True)
+        data2.drop(index_del, inplace=True)
         # Retornamos um novo dataframe com os dados comparados e eliminados
-        return data
+        return data, data2
     
     # All sklearn Transforms must have the `transform` and `fit` methods
 class CompareDeleteValuesPerfil(BaseEstimator, TransformerMixin):
     def __init__(self, perfil):
         self.perfil = perfil
 
-    def fit(self, X, y=None):
+    def fit(self, X, y):
         return self
 
-    def transform(self, X):
+    def transform(self, X, y):
         # Primeiro realizamos a cópia do dataframe 'X' de entrada
         data = X.copy()
         index_del = data.loc[data['PERFIL'] == self.perfil].loc[data['TOTAL_NOTA']>22].loc[data['TOTAL_REPROVACOES'] == 0].index
         data.drop(index_del, inplace=True)
+        data2.drop(index_del, inplace=True)
         # Retornamos um novo dataframe com os dados comparados e eliminados
-        return data
+        return data, data2
