@@ -98,7 +98,7 @@ class CompareDeleteValuesPerfil(BaseEstimator, TransformerMixin):
     def transform(self, X):
         # Primeiro realizamos a cópia do dataframe 'X' de entrada
         data = X.copy()
-        index_del = data.loc[df['PERFIL'] == self.perfil].loc[data['TOTAL_NOTA']>22].loc[data['TOTAL_REPROVACOES'] == 0].index
+        index_del = data.loc[data['PERFIL'] == self.perfil].loc[data['TOTAL_NOTA']>22].loc[data['TOTAL_REPROVACOES'] == 0].index
         data.drop(index_del, inplace=True)
         # Retornamos um novo dataframe com os dados comparados e eliminados
         return data
