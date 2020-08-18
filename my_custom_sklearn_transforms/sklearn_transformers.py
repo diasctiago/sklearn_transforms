@@ -71,6 +71,23 @@ class ModifyValuesNull(BaseEstimator, TransformerMixin):
         return data
     
 # All sklearn Transforms must have the `transform` and `fit` methods
+class ModifyValuesInt(BaseEstimator, TransformerMixin):
+    def __init__(self, column, value_int):
+        self.column = column
+        self.value_int = value_int
+
+    def fit(self, X, y=None):
+        return self
+
+    def transform(self, X):
+        # Primeiro realizamos a cópia do dataframe 'X' de entrada
+        data = X.copy()
+        row_index = data.loc[data[self.column].isnull() == True].index
+        data.loc[row_index, self.column] = self.value_int
+        # Retornamos um novo dataframe com os dados nulos alterados
+        return data
+    
+# All sklearn Transforms must have the `transform` and `fit` methods
 class CompareDeleteValuesZero(BaseEstimator, TransformerMixin):
     def __init__(self, columnA, columnB):
         self.columnA = columnA
